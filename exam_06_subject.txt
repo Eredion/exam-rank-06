@@ -1,0 +1,29 @@
+mini_serv
+
+funciones permitidas: write, close, select, socket, accept, listen, send, recv, bind, strstr, malloc,
+					realloc, free, calloc, bzero, ato, sprintf, strlen, exit, strcpy, strcat, memset.
+
+El servidor escucha solo en la dirección 127.0.0.1 y en el puerto que le pasas como primer argumento.
+
+En caso de que haya un fallo antes de la conexion o agún error en la reserva de memoria se debe sacar 
+por stderr "Fatal error" y un exit(1).
+
+El programa debe ser non blocking y no hay que echar a los clientes si no contestan.
+
+The fd that you will recieve will already be set to make 'recv' or 'send' to block if select hasn't been
+called before calling them, but will not block otherwise. 
+
+Cuando se conecte un cliente:
+- Se le asigna una id. El primero es 0 y cada uno sucesivo es el anterior +1.
+- Se envía a todos los clientes conectados: "server: client n just arrived\n"
+
+Cuando un cliente envia un mensaje al servidor:
+- Solo pueden ser printable chars (no hace falta comprobarlo).
+- Los mensajes siempre acaban en \n y no tienen más de 4096 caracteres.
+- Cuando el servidor recibe un msg, debe reenviarlo al resto de los clientes precedido de "client n: ..."
+
+Cuando un cliente se desconecte del servidor se debe notificar al resto: "server : client n just left\n"
+
+No hay que hacer buffer innecesario, hay que tener en cuenta que se pueden mandar mensajes muy rápido.
+
+Se puede y se debe probar con nc.

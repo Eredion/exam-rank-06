@@ -1,0 +1,1 @@
+No es necesario usar la funcion setsockopt. He probado el IRC nuestro sin la funcion y va perfectamente.
